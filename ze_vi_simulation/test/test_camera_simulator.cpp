@@ -35,6 +35,7 @@
 #include <ze/splines/bspline_pose_minimal.hpp>
 #include <ze/visualization/viz_ros.hpp>
 #ifdef ZE_USE_OPENCV
+#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #endif
 

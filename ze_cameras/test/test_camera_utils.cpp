@@ -32,6 +32,7 @@
 #include <ze/common/config.hpp>
 #ifdef ZE_USE_OPENCV
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #endif
 
 TEST(CameraUtilsTest, randomKeypoints)

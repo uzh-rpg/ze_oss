@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(ze_visualization)
 
 find_package(catkin_simple REQUIRED)
+find_package(OpenCV REQUIRED)
 catkin_simple(ALL_DEPS_REQUIRED)
 
 include(ze_setup)
@@ -27,7 +28,7 @@ cs_add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 # EXECUTABLES #
 ###############
 cs_add_executable(viz_example_node src/viz_example_node.cpp)
-target_link_libraries(viz_example_node ${PROJECT_NAME})
+target_link_libraries(viz_example_node ${PROJECT_NAME} ${OpenCV_LIBRARIES})
 
 ##########
 # EXPORT #

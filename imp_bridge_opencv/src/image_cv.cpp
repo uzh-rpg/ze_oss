@@ -45,7 +45,7 @@ ImageCv<Pixel>::ImageCv(const ze::Size2u& size, ze::PixelOrder pixel_order)
 template<typename Pixel>
 ImageCv<Pixel>::ImageCv(uint32_t width, uint32_t height,
                         ze::PixelOrder pixel_order)
-  : ImageCv({width, height}, pixel_order)
+  : ImageCv(ze::Size2u(width, height), pixel_order)
 {
 }
 
