@@ -28,6 +28,7 @@
 #include <array>
 #include <string>
 #include <sstream>
+#include <unistd.h>
 
 #include <ze/common/file_utils.hpp>
 #include <ze/common/logging.hpp>
@@ -101,6 +102,12 @@ public:
     CHECK(isDir(directory));
     openOutputFileStream(joinPath(directory, filename), &fs);
     fs << *this;
+  }
+
+  inline void saveToFileIfWritable(const std::string& directory, const std::string& filename) const
+  {
+    if (access(directory, W_OK))
+      saveToFile(directory, filename);
   }
 
   inline const Timers& timers() const { return timers_; }
