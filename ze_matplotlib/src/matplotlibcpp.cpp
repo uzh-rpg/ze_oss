@@ -96,11 +96,11 @@ private:
   _interpreter()
   {
     char name[] = "plotting"; // silence compiler warning about const strings
-    Py_SetProgramName(name);  // optional but recommended
+    //Py_SetProgramName(name);  // optional but recommended
     Py_Initialize();
 
-    PyObject* pyplotname = PyString_FromString("matplotlib.pyplot");
-    PyObject* pylabname  = PyString_FromString("pylab");
+    PyObject* pyplotname = PyBytes_FromString("matplotlib.pyplot");
+    PyObject* pylabname  = PyBytes_FromString("pylab");
     if (!pyplotname || !pylabname)
     {
       throw std::runtime_error("couldnt create string");
@@ -214,7 +214,7 @@ bool figure(std::string i)
   if (i != "")
   {
     args = PyTuple_New(1);
-    PyObject* i_py = PyString_FromString(i.c_str());
+    PyObject* i_py = PyBytes_FromString(i.c_str());
     PyTuple_SetItem(args, 0, i_py);
   }
   else
@@ -249,7 +249,7 @@ bool hist(
   }
 
   PyObject* bins_py = PyFloat_FromDouble(bins);
-  PyObject* histtype_py = PyString_FromString(histtype.c_str());
+  PyObject* histtype_py = PyBytes_FromString(histtype.c_str());
 
   // construct positional args
   PyObject* args = PyTuple_New(8);
@@ -292,7 +292,7 @@ bool boxplot(
   {
     PyObject* row = PyList_New(x.cols());
 
-    PyList_SetItem(py_labels, i, PyString_FromString(labels[i].c_str()));
+    PyList_SetItem(py_labels, i, PyBytes_FromString(labels[i].c_str()));
 
     for (int j = 0; j < x.cols(); ++j)
     {
@@ -416,7 +416,7 @@ bool plot(
   {
     PyDict_SetItemString(kwargs,
                          it->first.c_str(),
-                         PyString_FromString(it->second.c_str()));
+                         PyBytes_FromString(it->second.c_str()));
   }
 
   PyObject* res = PyObject_Call(
@@ -452,7 +452,7 @@ bool plot(
 
   PyObject* xlist = PyList_New(x.size());
   PyObject* ylist = PyList_New(y.size());
-  PyObject* pystring = PyString_FromString(s.c_str());
+  PyObject* pystring = PyBytes_FromString(s.c_str());
 
   for (int i = 0; i < x.size(); ++i)
   {
@@ -498,11 +498,11 @@ bool labelPlot(
   CHECK_EQ(true, x.size() == y.size());
 
   PyObject* kwargs = PyDict_New();
-  PyDict_SetItemString(kwargs, "label", PyString_FromString(name.c_str()));
+  PyDict_SetItemString(kwargs, "label", PyBytes_FromString(name.c_str()));
 
   PyObject* xlist = PyList_New(x.size());
   PyObject* ylist = PyList_New(y.size());
-  PyObject* pystring = PyString_FromString(format.c_str());
+  PyObject* pystring = PyBytes_FromString(format.c_str());
 
   for (int i = 0; i < x.size(); ++i)
   {
@@ -716,7 +716,7 @@ void xlim(real_t xmin, real_t xmax)
 // -----------------------------------------------------------------------------
 void title(const std::string &titlestr)
 {
-  PyObject* pytitlestr = PyString_FromString(titlestr.c_str());
+  PyObject* pytitlestr = PyBytes_FromString(titlestr.c_str());
   PyObject* args = PyTuple_New(1);
   PyTuple_SetItem(args, 0, pytitlestr);
 
@@ -734,7 +734,7 @@ void title(const std::string &titlestr)
 // -----------------------------------------------------------------------------
 void axis(const std::string &axisstr)
 {
-  PyObject* str = PyString_FromString(axisstr.c_str());
+  PyObject* str = PyBytes_FromString(axisstr.c_str());
   PyObject* args = PyTuple_New(1);
   PyTuple_SetItem(args, 0, str);
 
@@ -752,7 +752,7 @@ void axis(const std::string &axisstr)
 // -----------------------------------------------------------------------------
 void xlabel(const std::string &str)
 {
-  PyObject* pystr = PyString_FromString(str.c_str());
+  PyObject* pystr = PyBytes_FromString(str.c_str());
   PyObject* args = PyTuple_New(1);
   PyTuple_SetItem(args, 0, pystr);
 
@@ -770,7 +770,7 @@ void xlabel(const std::string &str)
 // -----------------------------------------------------------------------------
 void ylabel(const std::string &str)
 {
-  PyObject* pystr = PyString_FromString(str.c_str());
+  PyObject* pystr = PyBytes_FromString(str.c_str());
   PyObject* args = PyTuple_New(1);
   PyTuple_SetItem(args, 0, pystr);
 
@@ -829,7 +829,7 @@ void show(bool block)
 // -----------------------------------------------------------------------------
 void save(const std::string& filename)
 {
-  PyObject* pyfilename = PyString_FromString(filename.c_str());
+  PyObject* pyfilename = PyBytes_FromString(filename.c_str());
 
   PyObject* args = PyTuple_New(1);
   PyTuple_SetItem(args, 0, pyfilename);
