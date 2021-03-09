@@ -55,6 +55,7 @@
 
 #include <vector>
 #include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <ze/common/types.hpp>
 #include <ze/common/matrix.hpp>
 
@@ -229,7 +230,7 @@ private:
 
   Vector3 getParametersFromMatrix(const Matrix3& C) const
   {
-    Vector3 p;
+    /*Vector3 p;
     // Sometimes, because of roundoff error, the value of tr ends up outside
     // the valid range of arccos. Truncate to the valid range.
     real_t tr = std::max(-1.0, std::min(
@@ -253,7 +254,11 @@ private:
     real_t scale = -a/n2;
     p = scale * p;
 
-    return p;
+    return p;*/
+
+    AngleAxis a;
+    a = C;
+    return a.axis() * a.angle();
   }
 };
 
